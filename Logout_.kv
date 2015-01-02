@@ -31,7 +31,7 @@
 			
 			orientation: 'horizontal'
 			size_hint_y: None
-			height: '300dp'
+			height: '150dp'
 			padding: '5dp'
 			
 			Button:
@@ -42,15 +42,18 @@
 			
 			Button:
 				text: '1 Hour'
+				height: '10dp'
 				width: self.height
 				on_release: app.set_time(1)
 				
 			Button:
 				text: '2 Hours'
+				height: '100dp'
 				width: self.height
 				on_release: app.set_time(2)
 				
 			Button:
 				text: '3 Hours'
+				height: '100dp'
 				width: self.height
 				on_release: app.set_time(3)

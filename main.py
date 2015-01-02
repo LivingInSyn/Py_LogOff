@@ -15,6 +15,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.clock import Clock
 from kivy.uix.label import Label
 from kivy.core.window import Window
+from kivy.config import Config
 import subprocess
 import time
 
@@ -49,7 +50,15 @@ class Logout_App(App):
 		self.time = 0
 		return root
 		
+	def build_config(self,config):
+		Config.set('graphics','height',480)
+		Config.set('graphics','width',800)
+		Config.write()
+		#Config.update_config('config.ini',overwrite=True)
+		
 	def set_time(self,time):
+		config = self.config
+		
 		self.time = time
 		if self.time==45:
 			self.time = self.time*60
