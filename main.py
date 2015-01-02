@@ -1,5 +1,12 @@
-#import json
-#from os.path import join, exists
+'''
+Created by Jeremy Mill, originally for use in the hi tech classrooms at the University of CT
+
+Licensed under the GPLv3
+
+jeremymill@gmail.com
+github.com/livinginsyn
+'''
+
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition
 from kivy.properties import ListProperty, StringProperty, \
@@ -10,6 +17,7 @@ from kivy.uix.label import Label
 from kivy.core.window import Window
 import subprocess
 import time
+
 
 
 class Logout_Time(Screen):
@@ -26,10 +34,12 @@ class Logout_Time(Screen):
 class Logout_App(App):
 
 	'''set the window title and the icon here''' ''' ''' 
-	title = 'HTC Logoff Utility'
-	#icon = 'htc_logoff_icon.png'
+	icon = 'myicon.ico'
+	
 
 	def build(self):
+		self.icon = 'myicon.ico'
+		self.title = 'HTC Logoff Utility'
 		self.logout_times = Logout_Time(name='logout')
 		self.transition = SlideTransition(duration=.35)
 		root = ScreenManager(transition=self.transition)
