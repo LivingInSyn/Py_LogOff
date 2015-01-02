@@ -1,0 +1,56 @@
+<Screen>:
+	canvas:
+		#Color:
+			#rgb: .2, .2, .2
+		Rectangle:
+			size: self.size
+			#height: '450dp'
+			#width: '600dp'
+
+<Logout_Time>:
+	
+	BoxLayout:
+	
+		orientation: 'vertical'
+		padding: '5dp'
+		
+		Image:
+			height: '200dp'
+			size_hint_y: None
+			#padding: '5dp'
+			source: 'logout_banner.png'
+		
+		Label:
+			id: Text_label
+			#font_size: 20
+			color: 0,0,0,1
+			text: "Please select how long your class is. You will be logged out automatically after this period of time."
+			#height: '50dp'
+		
+		BoxLayout:
+			
+			orientation: 'horizontal'
+			size_hint_y: None
+			height: '300dp'
+			padding: '5dp'
+			
+			Button:
+				text: '45 Minutes'
+				height: '100dp'
+				on_release: app.set_time(45)
+				#width: self.height
+			
+			Button:
+				text: '1 Hour'
+				width: self.height
+				on_release: app.set_time(1)
+				
+			Button:
+				text: '2 Hours'
+				width: self.height
+				on_release: app.set_time(2)
+				
+			Button:
+				text: '3 Hours'
+				width: self.height
+				on_release: app.set_time(3)
