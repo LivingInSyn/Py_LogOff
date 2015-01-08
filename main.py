@@ -82,7 +82,7 @@ class Logout_App(App):
             #pass
             '''This Next line will have to change to the exe once it's made. It's to relaunch the app if someone closes
             it, forcing them to enter a time'''
-            subprocess.Popen(["C:\uits\Kivy-1.8.0-py2.7-win32\kivy.bat","C:\Users\student1953\Documents\GitHub\Py_LogOff\main.py"])
+            subprocess.Popen(["C:\uits\HTC-LogOut.exe"])
         else:
             time.sleep(self.time)
             subprocess.Popen(["shutdown.exe","/l"])
