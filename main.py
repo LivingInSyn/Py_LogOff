@@ -18,6 +18,7 @@ from kivy.core.window import Window
 from kivy.config import Config
 import subprocess
 import time
+import threading
 
 
 
@@ -46,8 +47,23 @@ class Logout_App(App):
         '''make the close window binding and initialize self.time to 0'''
         Window.bind(on_close=self.window_closed)
         self.time = 0
+        self.no_choice = 1
+        #self.auto_time = 3600
+        self.auto_time = 10
         test = "test"
+        self.no_input_timer = threading.Thread(target=self.left_open,args=())
+        self.no_input_timer.start()
         return root
+        
+    def left_open(self):
+        while self.no_choice == 1:
+            time.sleep(1)
+            print("running left open")
+            if self.auto_time == 0:
+                self.time = 1
+                Window.close()
+            else:
+                self.auto_time -= 1
         
     def build_config(self,config):
         Config.set('graphics','height',480)
@@ -62,6 +78,7 @@ class Logout_App(App):
             self.time = self.time*60
             #next line is for debugging
             #self.time = 0
+            self.no_choice = 0
             Window.close()
         elif self.time==1:
             self.time = self.time*3600
@@ -86,6 +103,8 @@ class Logout_App(App):
         else:
             time.sleep(self.time)
             subprocess.Popen(["shutdown.exe","/l"])
+            #print("would've logged out")
+            exit()
         exit()
 
 if __name__ == '__main__':
