@@ -48,8 +48,8 @@ class Logout_App(App):
         Window.bind(on_close=self.window_closed)
         self.time = 0
         self.no_choice = 1
-        #self.auto_time = 3600
-        self.auto_time = 10
+        self.auto_time = 3600
+        #self.auto_time = 10
         test = "test"
         self.no_input_timer = threading.Thread(target=self.left_open,args=())
         self.no_input_timer.start()
