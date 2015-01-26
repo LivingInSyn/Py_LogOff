@@ -42,7 +42,7 @@
 			
 			Button:
 				text: '1 Hour'
-				height: '10dp'
+				height: '100dp'
 				width: self.height
 				on_release: app.set_time(1)
 				
@@ -57,3 +57,131 @@
 				height: '100dp'
 				width: self.height
 				on_release: app.set_time(3)
+				
+			Button:
+				text: 'Custom Time'
+				height: '100dp'
+				width: self.height
+				on_release: app.call_custom()
+				
+<Custom_Time>:
+	BoxLayout:
+		orientation: 'vertical'
+		padding: '20dp'
+		
+		Image:
+			height: '200dp'
+			size_hint_y: None
+			#padding: '5dp'
+			source: 'logout_banner.png'
+		
+		#Label:
+			#id: Text_label
+			#color: 0,0,0,1
+			#text: "Please select how long your class is. You will be logged out automatically after this period of time.\n\nIf you do not select a time you will be logged out after 1 hour."
+			#size_hint: 1,.1
+			
+		BoxLayout:
+			orientation: 'horizontal'
+			
+			Label:
+				id: hours_label
+				color: 0,0,0,1
+				text: "Please enter the number of hours (max: 8)"
+				size_hint: .5,.1
+			Label:
+				id: minutes_label
+				color: 0,0,0,1
+				text: "Please enter the number of minutes (max: 59)"
+				size_hint: .5,.1
+		
+		BoxLayout:
+			orientation: 'horizontal'
+			#padding: '200dp'
+			#height: '30dp'
+			
+			TextInput:
+				hint_text: 'Select Hours'
+				#text: '0'
+				size_hint: .5,.5
+				#height: '30dp'
+				multiline: False
+				id: hours
+				
+			TextInput:
+				hint_text: 'Select Minutes'
+				multiline: False
+				size_hint: .5,.5
+				#height: '30dp'
+				id: minutes
+				
+		BoxLayout:
+			orientation: 'horizontal'
+			
+			Button:
+				text: 'Back'
+				on_release: app.custom_back()
+			Button:
+				text: 'OK'
+				on_release: app.custom_time(hours.text,minutes.text)
+				
+<Angry_Custom_Time>:
+	BoxLayout:
+		orientation: 'vertical'
+		padding: '20dp'
+		
+		Image:
+			height: '200dp'
+			size_hint_y: None
+			#padding: '5dp'
+			source: 'logout_banner.png'
+		
+		Label:
+			id: angry_label
+			text: "There was something wrong with your input, please try again"
+			color: 255,0,0,1
+			size_hint: 1,.1
+			
+		BoxLayout:
+			orientation: 'horizontal'
+			
+			Label:
+				id: hours_label
+				color: 0,0,0,1
+				text: "Please enter the number of hours (max: 8)"
+				size_hint: .5,.1
+			Label:
+				id: minutes_label
+				color: 0,0,0,1
+				text: "Please enter the number of minutes (max: 59)"
+				size_hint: .5,.1
+		
+		BoxLayout:
+			orientation: 'horizontal'
+			#padding: '200dp'
+			#height: '30dp'
+			
+			TextInput:
+				hint_text: 'Select Hours'
+				#text: '0'
+				size_hint: .5,.5
+				#height: '30dp'
+				multiline: False
+				id: hours
+				
+			TextInput:
+				hint_text: 'Select Minutes'
+				multiline: False
+				size_hint: .5,.5
+				#height: '30dp'
+				id: minutes
+				
+		BoxLayout:
+			orientation: 'horizontal'
+			
+			Button:
+				text: 'Back'
+				on_release: app.custom_back()
+			Button:
+				text: 'OK'
+				on_release: app.custom_time(hours.text,minutes.text)

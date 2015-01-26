@@ -16,6 +16,8 @@ from kivy.clock import Clock
 from kivy.uix.label import Label
 from kivy.core.window import Window
 from kivy.config import Config
+from kivy.base import runTouchApp
+from kivy.uix.spinner import Spinner
 import subprocess
 import time
 import threading
@@ -23,14 +25,21 @@ import threading
 
 
 class Logout_Time(Screen):
+    pass
     
-    data = ListProperty()
+    '''data = ListProperty()
     
     def args_converter(self, row_index, item):
         return {
             'note_index': row_index,
             'note_content': item['content'],
-            'note_title': item['title']}
+            'note_title': item['title']}'''
+            
+class Custom_Time(Screen):
+    pass
+    
+class Angry_Custom_Time(Screen):
+    pass
 
 
 class Logout_App(App):
@@ -58,7 +67,7 @@ class Logout_App(App):
     def left_open(self):
         while self.no_choice == 1:
             time.sleep(1)
-            print("running left open")
+            #print("running left open")
             if self.auto_time == 0:
                 self.time = 1
                 Window.close()
@@ -92,6 +101,49 @@ class Logout_App(App):
             self.time = self.time*3600
             Window.close()
             
+    def custom_time(self,hours,minutes):
+        if hours == "":
+            hours = 0
+        if minutes == "":
+            minutes = 0
+        try:
+            hours = int(hours)
+            minutes = int(minutes)
+            print(hours)
+            print(minutes)
+        except ValueError:
+            self.angry_custom()
+        self.time = (hours * 3600)+(minutes * 60)
+        Window.close()
+        
+            
+    def call_custom(self):
+        #remove logout
+        if self.root.has_screen('logout'):
+            self.root.remove_widget(self.root.get_screen('logout'))
+            
+        view = Custom_Time(name='cutom_time')
+        self.root.add_widget(view)
+        self.transition.direction = 'left'
+        self.root.current = view.name
+        
+    def angry_custom(self):
+        print('called angry custom')
+        if self.root.has_screen('custom_time'):
+            self.root.remove_widget(self.root.get_screen('custom_time'))
+        view = Angry_Custom_Time(name='angry_custom')
+        self.root.add_widget(view)
+        self.transition.direction = 'left'
+        self.root.current = view.name
+        
+    def custom_back(self):
+        if self.root.has_screen('custom_time'):
+            self.root.remove_widget(self.root.get_screen('custom_time'))
+        
+        self.root.add_widget(self.logout_times)
+        self.transition.direction = 'right'
+        self.root.current = self.logout_times.name
+            
     
     def window_closed(self, event):
         print("window closed")
@@ -102,8 +154,8 @@ class Logout_App(App):
             subprocess.Popen(["C:\uits\HTC-LogOut.exe"])
         else:
             time.sleep(self.time)
-            subprocess.Popen(["shutdown.exe","/l"])
-            #print("would've logged out")
+            #subprocess.Popen(["shutdown.exe","/l"])
+            print("would've logged out")
             exit()
         exit()
 
