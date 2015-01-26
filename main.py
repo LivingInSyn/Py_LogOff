@@ -102,6 +102,7 @@ class Logout_App(App):
             Window.close()
             
     def custom_time(self,hours,minutes):
+        good = 0
         if hours == "":
             hours = 0
         if minutes == "":
@@ -109,12 +110,23 @@ class Logout_App(App):
         try:
             hours = int(hours)
             minutes = int(minutes)
+            if hours !=0:
+                good = 1
+            else:
+                if minutes !=0:
+                    good = 1
+        except ValueError:
+            print("calling angry custom from except")
+            self.angry_custom()
+        if good==1:
+            self.time = (hours * 3600)+(minutes * 60)
+            Window.close()
+        else:
             print(hours)
             print(minutes)
-        except ValueError:
             self.angry_custom()
-        self.time = (hours * 3600)+(minutes * 60)
-        Window.close()
+            print("calling angry custom from if")
+        
         
             
     def call_custom(self):
@@ -128,7 +140,7 @@ class Logout_App(App):
         self.root.current = view.name
         
     def angry_custom(self):
-        print('called angry custom')
+        #print('called angry custom')
         if self.root.has_screen('custom_time'):
             self.root.remove_widget(self.root.get_screen('custom_time'))
         view = Angry_Custom_Time(name='angry_custom')
