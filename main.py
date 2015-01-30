@@ -35,6 +35,9 @@ class Logout_Time(Screen):
             'note_content': item['content'],
             'note_title': item['title']}'''
             
+class Warning_Time(Screen):
+    pass
+            
 class Custom_Time(Screen):
     pass
     
@@ -163,13 +166,18 @@ class Logout_App(App):
             #pass
             '''This Next line will have to change to the exe once it's made. It's to relaunch the app if someone closes
             it, forcing them to enter a time'''
-            subprocess.Popen(["C:\uits\HTC-LogOut.exe"])
+            #subprocess.Popen(["C:\uits\HTC-LogOut.exe"])
+            #self.stop()
+            #print("called self.stop")   
         else:
             time.sleep(self.time)
             #subprocess.Popen(["shutdown.exe","/l"])
             print("would've logged out")
-            exit()
-        exit()
-
+            #exit()
+        #exit()
+        
+    def __exit__(self):
+        print("called on exit")
+        
 if __name__ == '__main__':
     Logout_App().run()

@@ -1,0 +1,47 @@
+<Screen>:
+	canvas:
+		#Color:
+			#rgb: .2, .2, .2
+		Rectangle:
+			size: self.size
+			#height: '450dp'
+			#width: '600dp'
+			
+<warning_time>:
+	
+	BoxLayout:
+	
+		orientation: 'vertical'
+		padding: '5dp'
+		
+		Image:
+			height: '200dp'
+			size_hint_y: None
+			#padding: '5dp'
+			source: 'logout_banner.png'
+		
+		Label:
+			id: Text_label
+			#font_size: 20
+			color: 0,0,0,1
+			text: "Your selected time is up. Do you need 5 more minutes?"
+			#height: '50dp'
+		
+		BoxLayout:
+			
+			orientation: 'horizontal'
+			size_hint_y: None
+			height: '150dp'
+			padding: '5dp'
+			
+			Button:
+				text: '5 More Minutes'
+				height: '100dp'
+				on_release: app.set_time(45)
+				#width: self.height
+			
+			Button:
+				text: 'Logout Now'
+				height: '100dp'
+				width: self.height
+				on_release: app.set_time(1)
