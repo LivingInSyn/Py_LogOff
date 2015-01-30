@@ -7,6 +7,11 @@ jeremymill@gmail.com
 github.com/livinginsyn
 '''
 
+from kivy.config import Config
+Config.set('graphics','height',480)
+Config.set('graphics','width',800)
+Config.write()
+
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition
 from kivy.properties import ListProperty, StringProperty, \
@@ -15,7 +20,6 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.clock import Clock
 from kivy.uix.label import Label
 from kivy.core.window import Window
-from kivy.config import Config
 from kivy.base import runTouchApp
 from kivy.uix.spinner import Spinner
 import subprocess
