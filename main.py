@@ -90,6 +90,7 @@ class Logout_App(App):
     def set_time(self,time):
         config = self.config
         self.time = time
+        self.no_choice = 0
         if self.time==45:
             self.time = self.time*60
             #next line is for debugging
@@ -118,15 +119,18 @@ class Logout_App(App):
             hours = int(hours)
             minutes = int(minutes)
             if hours !=0:
-                good = 1
+                if hours < 8:
+                    good = 1
             else:
                 if minutes !=0:
-                    good = 1
+                    if minutes < 59:
+                        good = 1
         except ValueError:
             print("calling angry custom from except")
             self.angry_custom()
         if good==1:
             self.time = (hours * 3600)+(minutes * 60)
+            self.no_choice = 0
             Window.close()
         else:
             print(hours)
@@ -170,18 +174,16 @@ class Logout_App(App):
             #pass
             '''This Next line will have to change to the exe once it's made. It's to relaunch the app if someone closes
             it, forcing them to enter a time'''
-            #subprocess.Popen(["C:\uits\HTC-LogOut.exe"])
+            subprocess.Popen(["C:\uits\HTC-LogOut.exe"])
             #self.stop()
             #print("called self.stop")   
         else:
             time.sleep(self.time)
-            #subprocess.Popen(["shutdown.exe","/l"])
-            print("would've logged out")
-            #exit()
-        #exit()
+            subprocess.Popen(["C:\uits\warning.exe"])
+            #print("would've logged out")
+            exit()
+        exit()
         
-    def __exit__(self):
-        print("called on exit")
-        
+          
 if __name__ == '__main__':
     Logout_App().run()

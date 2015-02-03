@@ -1,0 +1,47 @@
+FIRST
+====
+
+python pyinstaller.py --name HTC_logout_utility --onefile --icon C:\Users\student1953\Documents\GitHub\Py_LogOff\myicon.ico C:\Users\student1953\Documents\GitHub\Py_LogOff\main.py
+
+
+Second
+====
+Add the folowing to the top of the spec file:
+
+from kivy.tools.packaging.pyinstaller_hooks import install_hooks
+install_hooks(globals())
+
+
+Third
+====
+remove hookspath=none from Analysis([
+
+Fourth
+====
+add the following to exe = EXE(pyz, ...
+#NOTE THE DOUBLE \\
+
+
+Tree('C:\\Users\\student1953\\Documents\\GitHub\\Py_LogOff\\'),
+
+Fifth
+====
+beneath the a = Analysis... section put the following loop
+
+for d in a.datas:
+    
+	if 'pyconfig' in d[0]: 
+        
+		a.datas.remove(d)
+        
+		break
+
+Sixth
+====
+in exe = EXE(...
+
+change Console=True to False
+
+Finally
+====
+python pyinstaller.py %folder%\%program%.spec
