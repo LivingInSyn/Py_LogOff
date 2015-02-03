@@ -72,7 +72,7 @@ class warning_App(App):
     def extend_time(self):
         config = self.config
         self.no_choice = 0
-        self.time = 30
+        self.time = 300
         Window.close()
         
     def logout_now(self):
