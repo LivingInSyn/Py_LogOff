@@ -15,7 +15,7 @@ Config.write()
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition
 from kivy.properties import ListProperty, StringProperty, \
-        NumericProperty, BooleanProperty
+        NumericProperty, BooleanProperty, ObjectProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.clock import Clock
 from kivy.uix.label import Label
@@ -25,19 +25,24 @@ from kivy.uix.spinner import Spinner
 import subprocess
 import time
 import threading
+import ConfigParser
 
 
 
 class Logout_Time(Screen):
-    pass
     
-    '''data = ListProperty()
+    #log_time = ObjectProperty(None)
     
-    def args_converter(self, row_index, item):
-        return {
-            'note_index': row_index,
-            'note_content': item['content'],
-            'note_title': item['title']}'''
+    def change_buttons(self,buttonlist):
+        self.ids.button1.text = buttonlist.pop()
+        self.ids.button2.text = buttonlist.pop()
+        self.ids.button3.text = buttonlist.pop()
+        self.ids.button4.text = buttonlist.pop()
+        #time.sleep(7)
+        
+    
+    #pass
+
             
 class Warning_Time(Screen):
     pass
@@ -54,6 +59,9 @@ class Logout_App(App):
     '''set the window title and the icon here''' ''' '''
     icon = 'myicon.ico'    
     def build(self):
+        
+        self.button_config()
+        
         self.icon = 'myicon.ico'
         self.title = 'HTC Logoff Utility'
         self.logout_times = Logout_Time(name='logout')
@@ -67,9 +75,37 @@ class Logout_App(App):
         self.auto_time = 3600
         #self.auto_time = 10
         test = "test"
-        self.no_input_timer = threading.Thread(target=self.left_open,args=())
-        self.no_input_timer.start()
+        
+        #self.no_input_timer = threading.Thread(target=self.left_open,args=())
+        #self.no_input_timer.start()
+        
+        self.button_config()
+        self.logout_times.change_buttons(self.button_list)
+        
         return root
+        
+    def button_config(self):
+        config = ConfigParser.ConfigParser()
+        config.read('logoff_config.cfg')
+        #grab the text from the buttons, put it into a list and reverse it, so it can be sent to logout_times
+        self.button1_text = config.get('Buttons','time_1',0)
+        self.button2_text = config.get('Buttons','time_2',0)
+        self.button3_text = config.get('Buttons','time_3',0)
+        self.button4_text = config.get('Buttons','time_4',0)
+        self.button_list = []
+        self.button_list.append(self.button1_text)
+        self.button_list.append(self.button2_text)
+        self.button_list.append(self.button3_text)
+        self.button_list.append(self.button4_text)
+        self.button_list.reverse()
+        #now grab the times for each of the buttons and cast as ints
+        self.button1_time = int(config.get('Times','time_1',0))
+        self.button2_time = int(config.get('Times','time_2',0))
+        self.button3_time = int(config.get('Times','time_3',0))
+        self.button4_time = int(config.get('Times','time_4',0))
+        
+        
+        
         
     def left_open(self):
         while self.no_choice == 1:
@@ -87,27 +123,25 @@ class Logout_App(App):
         Config.write()
         #Config.update_config('config.ini',overwrite=True)
         
-    def set_time(self,time):
-        config = self.config
-        self.time = time
+    def set_time(self,button):
+        #config = self.config
+        #self.time = time
         self.no_choice = 0
-        if self.time==45:
-            self.time = self.time*60
-            #next line is for debugging
-            #self.time = 0
-            self.no_choice = 0
+        if button==1:
+            self.time = self.button1_time*60
             Window.close()
-        elif self.time==1:
-            self.time = self.time*3600
-            #next line is for debugging
-            #self.time = 7
+        elif button==2:
+            self.time = self.button2_time*60
             Window.close()
-        elif self.time==2:
-            self.time = self.time*3600
+        elif button==3:
+            self.time = self.button3_time*60
             Window.close()
-        elif self.time==3:
-            self.time = self.time*3600
+        elif button==4:
+            self.time = self.button4_time*60
             Window.close()
+        
+        #self.time = self.time*60
+        #Window.close()
             
     def custom_time(self,hours,minutes):
         good = 0
@@ -170,6 +204,7 @@ class Logout_App(App):
     
     def window_closed(self, event):
         print("window closed")
+        print(self.time)
         if self.time==0:
             #pass
             '''This Next line will have to change to the exe once it's made. It's to relaunch the app if someone closes

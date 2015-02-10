@@ -9,7 +9,7 @@
 
 <Logout_Time>:
 	
-	BoxLayout:
+    BoxLayout:
 	
 		orientation: 'vertical'
 		padding: '5dp'
@@ -36,30 +36,36 @@
 			
 			Button:
 				text: '45 Minutes'
+                id: button1
 				height: '100dp'
-				on_release: app.set_time(45)
+				on_release: app.set_time(1)
+                #on_release: root.button_press()
 				#width: self.height
 			
 			Button:
 				text: '1 Hour'
-				height: '100dp'
-				width: self.height
-				on_release: app.set_time(1)
-				
-			Button:
-				text: '2 Hours'
+                id: button2
 				height: '100dp'
 				width: self.height
 				on_release: app.set_time(2)
 				
 			Button:
-				text: '3 Hours'
+				text: '2 Hours'
+                id: button3
 				height: '100dp'
 				width: self.height
 				on_release: app.set_time(3)
 				
 			Button:
+				text: '3 Hours'
+                id: button4
+				height: '100dp'
+				width: self.height
+				on_release: app.set_time(4)
+				
+			Button:
 				text: 'Custom Time'
+                id: button_custom
 				height: '100dp'
 				width: self.height
 				on_release: app.call_custom()
