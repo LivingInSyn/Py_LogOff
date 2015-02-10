@@ -7,6 +7,8 @@ jeremymill@gmail.com
 github.com/livinginsyn
 '''
 
+
+#put the graphics stuff up here so it'll change
 from kivy.config import Config
 Config.set('graphics','height',480)
 Config.set('graphics','width',800)
@@ -86,7 +88,9 @@ class Logout_App(App):
         
     def button_config(self):
         config = ConfigParser.ConfigParser()
-        config.read('logoff_config.cfg')
+        #for some reason, kivy on windows needs the absolute path
+        #I will have the change this around later when I compile
+        config.read('C:\\Users\\student1953\\Documents\\GitHub\\Py_LogOff\\logoff_config.cfg')
         #grab the text from the buttons, put it into a list and reverse it, so it can be sent to logout_times
         self.button1_text = config.get('Buttons','time_1',0)
         self.button2_text = config.get('Buttons','time_2',0)
