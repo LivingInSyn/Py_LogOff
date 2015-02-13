@@ -100,9 +100,9 @@ class Logout_App(App):
         #I will have the change this around later when I compile
         
         #for windows:
-        #config.read('C:\\Users\\student1953\\Documents\\GitHub\\Py_LogOff\\logoff_config.cfg')
+        config.read('C:\\Users\\student1953\\Documents\\GitHub\\Py_LogOff\\logoff_config.cfg')
         #for *nix
-        config.read('logoff_config.cfg')
+        #config.read('logoff_config.cfg')
         
         #grab the text from the buttons, put it into a list and reverse it, so it can be sent to logout_times
         self.button1_text = config.get('Buttons','time_1',0)
