@@ -100,7 +100,8 @@ class Logout_App(App):
         #I will have the change this around later when I compile
         
         #for windows:
-        config.read('C:\\Users\\student1953\\Documents\\GitHub\\Py_LogOff\\logoff_config.cfg')
+        #config.read('C:\\Users\\student1953\\Documents\\GitHub\\Py_LogOff\\logoff_config.cfg')
+        config.read('c:\uits\logoff_config.cfg')
         #for *nix
         #config.read('logoff_config.cfg')
         
