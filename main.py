@@ -33,8 +33,7 @@ import ConfigParser
 
 class Logout_Time(Screen):
     
-    #log_time = ObjectProperty(None)
-    
+    #change the buttons to their correct text values
     def change_buttons(self,buttonlist):
         self.ids.button1.text = buttonlist.pop()
         self.ids.button2.text = buttonlist.pop()
@@ -63,6 +62,8 @@ class Logout_App(App):
     def build(self):
         
         self.button_config()
+        #init the counter file
+        self.counter_file()
         
         self.icon = 'myicon.ico'
         self.title = 'HTC Logoff Utility'
@@ -78,19 +79,31 @@ class Logout_App(App):
         #self.auto_time = 10
         test = "test"
         
-        #self.no_input_timer = threading.Thread(target=self.left_open,args=())
-        #self.no_input_timer.start()
+        #start the one hour no input timer
+        self.no_input_timer = threading.Thread(target=self.left_open,args=())
+        self.no_input_timer.start()
         
+        #get the button text and times
         self.button_config()
         self.logout_times.change_buttons(self.button_list)
         
         return root
         
+    def counter_file(self):
+        f=open('counterfile','w')
+        f.write('3')
+        f.close()
+        
     def button_config(self):
         config = ConfigParser.ConfigParser()
         #for some reason, kivy on windows needs the absolute path
         #I will have the change this around later when I compile
-        config.read('C:\\Users\\student1953\\Documents\\GitHub\\Py_LogOff\\logoff_config.cfg')
+        
+        #for windows:
+        #config.read('C:\\Users\\student1953\\Documents\\GitHub\\Py_LogOff\\logoff_config.cfg')
+        #for *nix
+        config.read('logoff_config.cfg')
+        
         #grab the text from the buttons, put it into a list and reverse it, so it can be sent to logout_times
         self.button1_text = config.get('Buttons','time_1',0)
         self.button2_text = config.get('Buttons','time_2',0)
@@ -164,17 +177,14 @@ class Logout_App(App):
                     if minutes < 59:
                         good = 1
         except ValueError:
-            print("calling angry custom from except")
+            #print("calling angry custom from except")
             self.angry_custom()
         if good==1:
             self.time = (hours * 3600)+(minutes * 60)
             self.no_choice = 0
             Window.close()
         else:
-            print(hours)
-            print(minutes)
             self.angry_custom()
-            print("calling angry custom from if")
         
         
             
@@ -183,13 +193,14 @@ class Logout_App(App):
         if self.root.has_screen('logout'):
             self.root.remove_widget(self.root.get_screen('logout'))
             
+        #create the custom time view and add it to the screen manager
         view = Custom_Time(name='cutom_time')
         self.root.add_widget(view)
         self.transition.direction = 'left'
         self.root.current = view.name
         
     def angry_custom(self):
-        #print('called angry custom')
+        #If someone enters a bad time, remove regular custom_time and replace it with a new angry_custom
         if self.root.has_screen('custom_time'):
             self.root.remove_widget(self.root.get_screen('custom_time'))
         view = Angry_Custom_Time(name='angry_custom')
@@ -198,8 +209,11 @@ class Logout_App(App):
         self.root.current = view.name
         
     def custom_back(self):
+        #if someone selects back, remove the current screen and replace it with logout_times
         if self.root.has_screen('custom_time'):
             self.root.remove_widget(self.root.get_screen('custom_time'))
+        elif self.root.has_screen('angry_costom'):
+            self.root.remove_widget(self.root.get_screen('angry_custom'))
         
         self.root.add_widget(self.logout_times)
         self.transition.direction = 'right'
@@ -207,20 +221,24 @@ class Logout_App(App):
             
     
     def window_closed(self, event):
-        print("window closed")
-        print(self.time)
+        #called on the close of a window
         if self.time==0:
             #pass
             '''This Next line will have to change to the exe once it's made. It's to relaunch the app if someone closes
             it, forcing them to enter a time'''
             subprocess.Popen(["C:\uits\HTC-LogOut.exe"])
-            #self.stop()
             #print("called self.stop")   
         else:
+            #sleep until it's time to call a 5 minute warning
+            
             time.sleep(self.time)
             subprocess.Popen(["C:\uits\warning.exe"])
-            #print("would've logged out")
-            exit()
+            
+            #for debuggin on *nix
+            #subprocess.Popen(["python","/home/bobo/Documents/programming/Py_LogOff/warning/warning.py"])
+            
+            
+        #make sure we exit
         exit()
         
           
