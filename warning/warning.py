@@ -29,11 +29,14 @@ from kivy.uix.spinner import Spinner
 import subprocess
 import time
 import threading
+import os.path
 
 
 #Try and open the counter file, if it fails for some reason, assume run = 2
 try:
-    f = open('counterfile','r')
+    save_path = 'c:\\uits\\'
+    filename=os.path.join(save_path,"counterfile")
+    f = open(filename,'r')
     run = int(f.read())
 except IOError:
     run=2
@@ -107,7 +110,9 @@ class warning_App(App):
         subprocess.Popen(["shutdown.exe","/l"])
         
     def decrease_counter(self):
-        f = open('counterfile','w')
+        save_path = 'c:\\uits\\'
+        filename=os.path.join(save_path,"counterfile")
+        f = open(filename,'w')
         f.write(str(run-1))
         f.close()
         

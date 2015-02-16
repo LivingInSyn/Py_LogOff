@@ -28,6 +28,7 @@ import subprocess
 import time
 import threading
 import ConfigParser
+import os.path
 
 
 
@@ -90,7 +91,9 @@ class Logout_App(App):
         return root
         
     def counter_file(self):
-        f=open('counterfile','w')
+        save_path = 'c:\\uits\\'
+        filename=os.path.join(save_path,"counterfile")
+        f=open(filename,'w')
         f.write('3')
         f.close()
         
