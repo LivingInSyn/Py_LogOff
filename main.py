@@ -29,7 +29,8 @@ import time
 import threading
 import ConfigParser
 import os.path
-
+import os
+import sys
 
 
 class Logout_Time(Screen):
@@ -40,12 +41,8 @@ class Logout_Time(Screen):
         self.ids.button2.text = buttonlist.pop()
         self.ids.button3.text = buttonlist.pop()
         self.ids.button4.text = buttonlist.pop()
-        #time.sleep(7)
-        
-    
-    #pass
 
-            
+        
 class Warning_Time(Screen):
     pass
             
@@ -57,29 +54,29 @@ class Angry_Custom_Time(Screen):
 
 
 class Logout_App(App):
-
-    '''set the window title and the icon here''' ''' '''
-    icon = 'myicon.ico'    
+    
     def build(self):
         
+        #get the app_path
+        self.path = self.find_current_dir()
+        #do the button config thing
         self.button_config()
         #init the counter file
         self.counter_file()
-        
+        #set the icon and title
         self.icon = 'myicon.ico'
         self.title = 'HTC Logoff Utility'
+        #make the first screen, slide transition, screenmanager and add it to the root
         self.logout_times = Logout_Time(name='logout')
         self.transition = SlideTransition(duration=.35)
         root = ScreenManager(transition=self.transition)
         root.add_widget(self.logout_times)
-        '''make the close window binding and initialize self.time to 0'''
+        #make the close window binding and initialize self.time to 0
         Window.bind(on_close=self.window_closed)
         self.time = 0
         self.no_choice = 1
         self.auto_time = 3600
-        #self.auto_time = 10
-        test = "test"
-        
+                
         #start the one hour no input timer
         self.no_input_timer = threading.Thread(target=self.left_open,args=())
         self.no_input_timer.start()
@@ -87,26 +84,23 @@ class Logout_App(App):
         #get the button text and times
         self.button_config()
         self.logout_times.change_buttons(self.button_list)
-        
+               
         return root
         
     def counter_file(self):
-        save_path = 'c:\\uits\\'
-        filename=os.path.join(save_path,"counterfile")
+        #this is the file that lets us know how many times warning has left to be called
+        filename=os.path.join(self.path,"counterfile")
         f=open(filename,'w')
         f.write('3')
         f.close()
         
     def button_config(self):
+        #create the config object
         config = ConfigParser.ConfigParser()
-        #for some reason, kivy on windows needs the absolute path
-        #I will have the change this around later when I compile
         
-        #for windows:
-        #config.read('C:\\Users\\student1953\\Documents\\GitHub\\Py_LogOff\\logoff_config.cfg')
-        config.read('c:\uits\logoff_config.cfg')
-        #for *nix
-        #config.read('logoff_config.cfg')
+        #create the path to the config file and read it. The config file needs to be in the same directory as the exe/main.py
+        config_path = os.path.join(self.path,"logoff_config.cfg")
+        config.read(config_path)
         
         #grab the text from the buttons, put it into a list and reverse it, so it can be sent to logout_times
         self.button1_text = config.get('Buttons','time_1',0)
@@ -125,10 +119,16 @@ class Logout_App(App):
         self.button3_time = int(config.get('Times','time_3',0))
         self.button4_time = int(config.get('Times','time_4',0))
         
-        
-        
-        
+    def find_current_dir(self):
+        #found this on Stack Overflow, returns the correct current working directory for exe's or py files
+        if getattr(sys, 'frozen', False):
+            application_path = os.path.dirname(sys.executable)
+        elif __file__:
+            application_path = os.path.dirname(__file__)
+        return application_path
+              
     def left_open(self):
+        #this function runs in a sep. thread and closes the window after one hour if left open
         while self.no_choice == 1:
             time.sleep(1)
             #print("running left open")
@@ -142,11 +142,9 @@ class Logout_App(App):
         Config.set('graphics','height',480)
         Config.set('graphics','width',800)
         Config.write()
-        #Config.update_config('config.ini',overwrite=True)
         
     def set_time(self,button):
-        #config = self.config
-        #self.time = time
+        #sets the times for the buttons based off of the config file
         self.no_choice = 0
         if button==1:
             self.time = self.button1_time*60
@@ -160,9 +158,6 @@ class Logout_App(App):
         elif button==4:
             self.time = self.button4_time*60
             Window.close()
-        
-        #self.time = self.time*60
-        #Window.close()
             
     def custom_time(self,hours,minutes):
         good = 0
@@ -189,9 +184,7 @@ class Logout_App(App):
             Window.close()
         else:
             self.angry_custom()
-        
-        
-            
+               
     def call_custom(self):
         #remove logout
         if self.root.has_screen('logout'):
@@ -227,21 +220,15 @@ class Logout_App(App):
     def window_closed(self, event):
         #called on the close of a window
         if self.time==0:
-            #pass
             '''This Next line will have to change to the exe once it's made. It's to relaunch the app if someone closes
             it, forcing them to enter a time'''
-            subprocess.Popen(["C:\uits\HTC-LogOut.exe"])
-            #print("called self.stop")   
+            executable_name = os.path.join(self.path,"HTC-LogOut.exe")
+            subprocess.Popen([executable_name])   
         else:
             #sleep until it's time to call a 5 minute warning
-            
             time.sleep(self.time)
-            subprocess.Popen(["C:\uits\warning.exe"])
-            
-            #for debuggin on *nix
-            #subprocess.Popen(["python","/home/bobo/Documents/programming/Py_LogOff/warning/warning.py"])
-            
-            
+            executable_name = os.path.join(self.path,"warning.exe")
+            subprocess.Popen([executable_name])
         #make sure we exit
         exit()
         
