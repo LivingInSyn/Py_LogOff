@@ -30,12 +30,18 @@ import subprocess
 import time
 import threading
 import os.path
+import os
+import sys
 
 
 #Try and open the counter file, if it fails for some reason, assume run = 2
+if getattr(sys, 'frozen', False):
+    application_path = os.path.dirname(sys.executable)
+elif __file__:
+    application_path = os.path.dirname(__file__)
 try:
-    save_path = 'c:\\uits\\'
-    filename=os.path.join(save_path,"counterfile")
+    #save_path = 'c:\\uits\\'
+    filename=os.path.join(application_path,"counterfile")
     f = open(filename,'r')
     run = int(f.read())
 except IOError:
@@ -58,6 +64,8 @@ class warning_App(App):
     icon = 'myicon.ico'
     
     def build(self):
+        #get the current directory
+        self.path = self.find_current_dir()
         #set the icon/title/create the warning_times object
         self.icon = 'myicon.ico'
         self.title = 'HTC Logoff Utility'
@@ -93,7 +101,6 @@ class warning_App(App):
         Config.set('graphics','height',480)
         Config.set('graphics','width',800)
         Config.write()
-        #Config.update_config('config.ini',overwrite=True)
         
     def extend_time(self):
         #if someone selects give me 5 more minutes
@@ -110,11 +117,19 @@ class warning_App(App):
         subprocess.Popen(["shutdown.exe","/l"])
         
     def decrease_counter(self):
-        save_path = 'c:\\uits\\'
-        filename=os.path.join(save_path,"counterfile")
+        #save_path = 'c:\\uits\\'
+        filename=os.path.join(self.path,"counterfile")
         f = open(filename,'w')
         f.write(str(run-1))
         f.close()
+        
+    def find_current_dir(self):
+        #found this on Stack Overflow, returns the correct current working directory for exe's or py files
+        if getattr(sys, 'frozen', False):
+            application_path = os.path.dirname(sys.executable)
+        elif __file__:
+            application_path = os.path.dirname(__file__)
+        return application_path
         
     def window_closed(self, event):
         print("window closed")
