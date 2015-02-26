@@ -139,12 +139,14 @@ class warning_App(App):
             it, forcing them to enter a time'''
             
             #NOTE! The no choice thread is still running even if we relaunch here!
-            subprocess.Popen(["C:\uits\warning.exe"])
+            executable_name = os.path.join(self.path,"warning.exe")
+            subprocess.Popen([executable_name])
             
         else:
             self.decrease_counter()
             time.sleep(self.time)
-            subprocess.Popen(["C:\uits\warning.exe"])
+            executable_name = os.path.join(self.path,"warning.exe")
+            subprocess.Popen([executable_name])
             #subprocess.Popen(["shutdown.exe","/l"])
             #print("would've logged out")
             exit()
