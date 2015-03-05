@@ -14,6 +14,7 @@ from kivy.config import Config
 
 Config.set('graphics','height',480)
 Config.set('graphics','width',800)
+Config.set('input','mouse','mouse,disable_multitouch')
 Config.write()
 
 from kivy.app import App

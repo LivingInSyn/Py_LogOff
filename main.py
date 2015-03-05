@@ -12,6 +12,7 @@ github.com/livinginsyn
 from kivy.config import Config
 Config.set('graphics','height',480)
 Config.set('graphics','width',800)
+Config.set('input','mouse','mouse,disable_multitouch')
 Config.write()
 
 from kivy.app import App
@@ -41,6 +42,9 @@ class Logout_Time(Screen):
         self.ids.button2.text = buttonlist.pop()
         self.ids.button3.text = buttonlist.pop()
         self.ids.button4.text = buttonlist.pop()
+    
+    def change_banner(self,image):
+        self.ids.banner_image.source = image
 
         
 class Warning_Time(Screen):
@@ -60,7 +64,7 @@ class Logout_App(App):
         #get the app_path
         self.path = self.find_current_dir()
         #do the button config thing
-        self.button_config()
+        #self.button_config()
         #init the counter file
         self.counter_file()
         #set the icon and title
@@ -82,8 +86,10 @@ class Logout_App(App):
         self.no_input_timer.start()
         
         #get the button text and times
-        self.button_config()
+        self.read_config()
         self.logout_times.change_buttons(self.button_list)
+        #banner change
+        self.logout_times.change_banner(self.banner_image)
                
         return root
         
@@ -94,7 +100,8 @@ class Logout_App(App):
         f.write('3')
         f.close()
         
-    def button_config(self):
+        
+    def read_config(self):
         #create the config object
         config = ConfigParser.ConfigParser()
         
@@ -118,6 +125,8 @@ class Logout_App(App):
         self.button2_time = int(config.get('Times','time_2',0))
         self.button3_time = int(config.get('Times','time_3',0))
         self.button4_time = int(config.get('Times','time_4',0))
+        #get the banner config 
+        self.banner_image = config.get('Banner','image',0)
         
     def find_current_dir(self):
         #found this on Stack Overflow, returns the correct current working directory for exe's or py files
