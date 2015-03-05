@@ -33,6 +33,7 @@ import threading
 import os.path
 import os
 import sys
+import ConfigParser
 
 
 #Try and open the counter file, if it fails for some reason, assume run = 2
@@ -50,7 +51,9 @@ except IOError:
 
 
 class warning_time(Screen):
-    pass
+    #pass
+    def change_banner(self,image):
+        self.ids.banner_image.source = image
     
 class Logout_Time(Screen):
     pass
@@ -84,6 +87,10 @@ class warning_App(App):
         #self.auto_time = 10
         self.no_input_timer = threading.Thread(target=self.unattended_warning,args=())
         self.no_input_timer.start()
+        #run the config reader and change the banner
+        self.read_config()
+        self.warning_times.change_banner(self.banner_image)
+        
         return root
         
     def unattended_warning(self):
@@ -103,6 +110,17 @@ class warning_App(App):
         Config.set('graphics','width',800)
         Config.write()
         
+    def read_config(self):
+        #create the config object
+        config = ConfigParser.ConfigParser()
+        
+        #create the path to the config file and read it. The config file needs to be in the same directory as the exe/main.py
+        config_path = os.path.join(self.path,"logoff_config.cfg")
+        config.read(config_path)
+        
+        #get the banner config 
+        self.banner_image = config.get('Banner','image',0)
+    
     def extend_time(self):
         #if someone selects give me 5 more minutes
         config = self.config
