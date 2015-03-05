@@ -6,8 +6,10 @@ then logs them off after that period of time. Relaunches if the user chooses to 
 
 If the user does not choose a time, this logs the user off after 1 hour
 
+When the initial time is up, this program asks if they need 5 more minutes. They can select yes up to 3 times. If nothing is entered, this will log the user off automatically after 5 minutes.
+
 Compiled win32 binaries can be found at:
 
-http://livinginsyn.com/logoff_binaries/
+http://livinginsyn.com/logoff_binaries/HTC.7z
 
-All the files located in that directory must be placed inside of a folder "c:\uits\" for now.
+
