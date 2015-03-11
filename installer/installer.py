@@ -34,10 +34,14 @@ def install():
     for item in files:
         util.copy(item,directory)
     #make the runtime registry key
-    if overwrite == False:
-        start_run_key = wreg.OpenKey(wreg.HKEY_LOCAL_MACHINE, "Software\\Microsoft\\Windows\\CurrentVersion\\Run",0,wreg.KEY_ALL_ACCESS)
-        #I"M HERE WORKING--NEED TO SET THE VALUE
-            #NEXT -- put in add/remove programs and then create uninstaller
+    #note the KEY ALL ACCESS is important, and so are the escaped quotes in the key
+    start_run_key = wreg.OpenKey(wreg.HKEY_LOCAL_MACHINE, "Software\\Microsoft\\Windows\\CurrentVersion\\Run",0,wreg.KEY_ALL_ACCESS)
+    wreg.SetValueEx(start_run_key, 'LogOff Utility', 0, wreg.REG_SZ, "\""+directory+"HTC-LogOut.exe"+"\"")
+    wreg.CloseKey(start_run_key)
+    
+    #now start the uninstall string
+    
+        
         
 #the meat and potatoes
 if ver == 64:
