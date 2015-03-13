@@ -20,6 +20,7 @@ def sixty_folder():
         os.mkdir(directory)
     else:
         overwrite = True
+    return directory
 
 def thirty_folder():
     directory = 'C:\\Program Files\\HTC-Logout\\'
@@ -27,12 +28,24 @@ def thirty_folder():
         os.mkdir(directory)
     else:
         overwrite = True
+    return directory
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
         
-def install():
+def install(directory):
     #put the files where they need to go
     files = ["HTC-LogOut.exe","warning.exe","logoff_config.cfg","logout_banner.png"]
     for item in files:
-        util.copy(item,directory)
+        to_copy = resource_path(item)
+        util.copy(to_copy,directory)
     #make the runtime registry key
     #note the KEY ALL ACCESS is important, and so are the escaped quotes in the key
     #this one is tested and working
@@ -55,8 +68,8 @@ def install():
         
 #the meat and potatoes
 if ver == 64:
-    sixty_folder()
-    install()
+    directory = sixty_folder()
+    install(directory)
 elif ver == 32:
-    thirty_folder()
-    install()
+    directory = thirty_folder()
+    install(directory)
