@@ -1,3 +1,12 @@
+'''
+Created by Jeremy Mill, originally for use in the hi tech classrooms at the University of CT
+
+Licensed under the GPLv3
+
+jeremymill@gmail.com
+github.com/livinginsyn
+'''
+
 import os
 import shutil as util
 import _winreg as wreg
