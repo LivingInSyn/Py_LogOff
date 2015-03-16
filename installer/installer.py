@@ -51,7 +51,7 @@ def resource_path(relative_path):
         
 def install(directory):
     #put the files where they need to go
-    files = ["HTC-LogOut.exe","warning.exe","logoff_config.cfg","logout_banner.png"]
+    files = ["HTC-LogOut.exe","warning.exe","logoff_config.cfg","logout_banner.png","uninstall.exe"]
     for item in files:
         to_copy = resource_path(item)
         util.copy(to_copy,directory)

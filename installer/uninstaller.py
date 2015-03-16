@@ -28,15 +28,26 @@ util.rmtree(directory,ignore_errors=True)
 
 #remove registry entries
 #first the run entry
-start_run_key = wreg.OpenKey(wreg.HKEY_LOCAL_MACHINE, "Software\\Microsoft\\Windows\\CurrentVersion\\Run",0,wreg.KEY_ALL_ACCESS)
-wreg.DeleteValue(start_run_key,'LogOff Utility')
-wreg.CloseKey(start_run_key)
+try:
+    start_run_key = wreg.OpenKey(wreg.HKEY_LOCAL_MACHINE, "Software\\Microsoft\\Windows\\CurrentVersion\\Run",0,wreg.KEY_ALL_ACCESS)
+    wreg.DeleteValue(start_run_key,'LogOff Utility')
+    wreg.CloseKey(start_run_key)
+except WindowsError:
+    pass
 #now the uninstall info
-uninstall_key = wreg.OpenKey(wreg.HKEY_LOCAL_MACHINE, "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Logoff_Utility",0,wreg.KEY_ALL_ACCESS)
-wreg.DeleteValue(uninstall_key,'DisplayName')
-wreg.DeleteValue(uninstall_key,'UninstallString')
-wreg.CloseKey(uninstall_key)
+try:
+    uninstall_key = wreg.OpenKey(wreg.HKEY_LOCAL_MACHINE, "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Logoff_Utility",0,wreg.KEY_ALL_ACCESS)
+    wreg.DeleteValue(uninstall_key,'DisplayName')
+    wreg.DeleteValue(uninstall_key,'UninstallString')
+    wreg.CloseKey(uninstall_key)
+except WindowsError:
+    pass
 #finally the subkey
-uninstall_subkey = wreg.OpenKey(wreg.HKEY_LOCAL_MACHINE, "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall",0,wreg.KEY_ALL_ACCESS)
-wreg.DeleteKey(uninstall_subkey,'Logoff_Utility')
+try:
+    uninstall_subkey = wreg.OpenKey(wreg.HKEY_LOCAL_MACHINE, "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall",0,wreg.KEY_ALL_ACCESS)
+    wreg.DeleteKey(uninstall_subkey,'Logoff_Utility')
+except:
+    pass
+    
+exit()
 
