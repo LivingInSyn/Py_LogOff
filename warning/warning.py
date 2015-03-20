@@ -102,6 +102,7 @@ class warning_App(App):
                 self.time = 1
                 #Window.close()
                 subprocess.Popen(["shutdown.exe","/l"])
+                #os.system("shutdown.exe /l")
             else:
                 self.auto_time -= 1
     
