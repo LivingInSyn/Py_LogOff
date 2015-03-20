@@ -100,7 +100,8 @@ class warning_App(App):
             print("running left open")
             if self.auto_time == 0:
                 self.time = 1
-                Window.close()
+                #Window.close()
+                subprocess.Popen(["shutdown.exe","/l"])
             else:
                 self.auto_time -= 1
     
