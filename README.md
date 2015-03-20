@@ -10,6 +10,6 @@ When the initial time is up, this program asks if they need 5 more minutes. They
 
 Compiled win32 binaries can be found at:
 
-http://livinginsyn.com/logoff_binaries/HTC.7z
+http://livinginsyn.com/logoff_binaries/
 
 
