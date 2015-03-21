@@ -35,7 +35,7 @@ import sys
 
 
 class Logout_Time(Screen):
-    
+    '''This is the main screen class that loads on start'''
     #change the buttons to their correct text values
     def change_buttons(self,buttonlist):
         self.ids.button1.text = buttonlist.pop()
@@ -48,12 +48,15 @@ class Logout_Time(Screen):
 
         
 class Warning_Time(Screen):
+    '''stub, defined in KV file'''
     pass
             
 class Custom_Time(Screen):
+    '''stub, defined in KV file'''
     pass
     
 class Angry_Custom_Time(Screen):
+    '''stub, defined in KV file'''
     pass
 
 
@@ -63,8 +66,7 @@ class Logout_App(App):
         
         #get the app_path
         self.path = self.find_current_dir()
-        #do the button config thing
-        #self.button_config()
+        
         #init the counter file
         self.counter_file()
         #set the icon and title
@@ -95,6 +97,7 @@ class Logout_App(App):
         
     def counter_file(self):
         #this is the file that lets us know how many times warning has left to be called
+        #need to call it before warning does
         filename=os.path.join(self.path,"counterfile")
         f=open(filename,'w')
         f.write('3')
@@ -110,6 +113,7 @@ class Logout_App(App):
         config.read(config_path)
         
         #grab the text from the buttons, put it into a list and reverse it, so it can be sent to logout_times
+        '''this needs to be cleaned up and placed into a loop'''
         self.button1_text = config.get('Buttons','time_1',0)
         self.button2_text = config.get('Buttons','time_2',0)
         self.button3_text = config.get('Buttons','time_3',0)
@@ -129,7 +133,7 @@ class Logout_App(App):
         self.banner_image = config.get('Banner','image',0)
         
     def find_current_dir(self):
-        #found this on Stack Overflow, returns the correct current working directory for exe's or py files
+        #returns the correct current working directory for exe's or py files
         if getattr(sys, 'frozen', False):
             application_path = os.path.dirname(sys.executable)
         elif __file__:
@@ -147,13 +151,9 @@ class Logout_App(App):
             else:
                 self.auto_time -= 1
         
-    def build_config(self,config):
-        Config.set('graphics','height',480)
-        Config.set('graphics','width',800)
-        Config.write()
-        
     def set_time(self,button):
         #sets the times for the buttons based off of the config file
+        '''This needs to be cleaned up'''
         self.no_choice = 0
         if button==1:
             self.time = self.button1_time*60
@@ -169,6 +169,8 @@ class Logout_App(App):
             Window.close()
             
     def custom_time(self,hours,minutes):
+        #This is the test for custom time. We need to make sure that custom time isn't 0,0 and to make sure that it meets
+        #the criteria we defined as the maximum time. This needs to be added to the configuration file as well
         good = 0
         if hours == "":
             hours = 0
@@ -195,6 +197,7 @@ class Logout_App(App):
             self.angry_custom()
                
     def call_custom(self):
+        '''This calls the custom time class'''
         #remove logout
         if self.root.has_screen('logout'):
             self.root.remove_widget(self.root.get_screen('logout'))
