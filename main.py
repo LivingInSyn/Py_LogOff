@@ -180,12 +180,11 @@ class Logout_App(App):
             hours = int(hours)
             minutes = int(minutes)
             if hours !=0:
-                if hours < 8:
+                if hours <= 8 and minutes < 60 :
                     good = 1
             else:
-                if minutes !=0:
-                    if minutes < 59:
-                        good = 1
+                if minutes !=0 and minutes < 60:
+                    good = 1
         except ValueError:
             #print("calling angry custom from except")
             self.angry_custom()
