@@ -34,6 +34,10 @@ import os.path
 import os
 import sys
 import ConfigParser
+import getpass
+import ldap
+#next line disables cert checking, which is OK because we query only
+ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_NEVER)
 
 
 #Try and open the counter file, if it fails for some reason, assume run = 2
@@ -54,6 +58,10 @@ class warning_time(Screen):
     #pass
     def change_banner(self,image):
         self.ids.banner_image.source = image
+        
+    def set_username(self,name):
+        #HERE IS THE SET TEXT METHOD!!
+        self.ids.Text_label.text = name + " is the currently logged in user.\nIf this is you and you need 5 more minutes, select 5 more minutes below.\nOtherwise, select \'Logout Now\' and login with your account."
     
 class Logout_Time(Screen):
     pass
@@ -74,6 +82,7 @@ class warning_App(App):
         self.icon = 'myicon.ico'
         self.title = 'HTC Logoff Utility'
         self.warning_times = warning_time(name='warning')
+        self.warning_times.set_username(self.get_username())
         self.transition = SlideTransition(duration=.35)
         #create the screen manager and add warning times to it
         root = ScreenManager(transition=self.transition)
@@ -151,6 +160,27 @@ class warning_App(App):
         elif __file__:
             application_path = os.path.dirname(__file__)
         return application_path
+        
+    def get_username(self):
+        netid = getpass.getuser()
+        result = None
+
+        try:
+            l = ldap.initialize('ldaps://ldap.uconn.edu:636')
+            result = l.search_st('uid={0},ou=people,dc=uconn,dc=edu'.format(netid), ldap.SCOPE_SUBTREE, 'objectClass=*', None)
+        except ldap.LDAPError as error:
+            return netid
+            
+        returnedName = result[0][1]['displayName'][0]
+        last_first = returnedName.replace(' ','').split(',')
+        
+        if len(last_first) > 1:
+            username = last_first[1] + " " + last_first[0]
+        else:
+            username = last_first[0]
+        
+        return username
+        
         
     def window_closed(self, event):
         print("window closed")
