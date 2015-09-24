@@ -1,0 +1,15 @@
+﻿<NavigationWindow x:Class="HTC_LogOut.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HTC_LogOut"
+        mc:Ignorable="d"
+        Title="HTC Logout Utility" Height="480" Width="800"
+        ResizeMode="NoResize"
+        Source="SelectHoursPage.xaml"
+        ShowsNavigationUI="False"
+        Topmost="True"
+        Icon="images\myicon.ico">
+    
+</NavigationWindow>

@@ -1,0 +1,32 @@
+﻿<Page x:Class="HTC_LogOut.Warning"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:HTC_LogOut"
+      mc:Ignorable="d" 
+      d:DesignHeight="480" d:DesignWidth="800"
+      Title="HTC - LogOff -Warning">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="170"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Image Source="images\logout_banner.png" Grid.Row="0" Margin="20"></Image>
+        <TextBlock Grid.Row="1" Margin="10,10,10,0" FontSize="17" Name="TextLine1"><Bold>Test</Bold> is the Currently Logged in user.</TextBlock>
+        <TextBlock Grid.Row="2" Margin="10,0,10,0" FontSize="17" Name="TextLine2">If you need more time, select "5 More Minutes". If you are done, click "Logout Now", then login with </TextBlock>
+        <TextBlock Grid.Row="3" Margin="10,0,10,0" FontSize="17" Name="TextLine3">your NetID and password</TextBlock>
+        <StackPanel Orientation="Horizontal" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Width="350">
+                <Button Width="200" Height="40" Click="five_more" Content="5 More Minutes" />
+            </StackPanel>
+            <StackPanel Width="350">
+                <Button Width="200" Height="40" Content="Logout Now" Click="logout_now"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

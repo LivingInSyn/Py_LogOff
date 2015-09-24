@@ -1,0 +1,6 @@
+c:\users\student1953\documents\visual studio 2015\Projects\LogOut_1_to_2_Installer\LogOut_1_to_2_Installer\bin\Debug\LogOut_1_to_2_Installer.exe.config
+c:\users\student1953\documents\visual studio 2015\Projects\LogOut_1_to_2_Installer\LogOut_1_to_2_Installer\bin\Debug\LogOut_1_to_2_Installer.exe
+c:\users\student1953\documents\visual studio 2015\Projects\LogOut_1_to_2_Installer\LogOut_1_to_2_Installer\bin\Debug\LogOut_1_to_2_Installer.pdb
+c:\users\student1953\documents\visual studio 2015\Projects\LogOut_1_to_2_Installer\LogOut_1_to_2_Installer\obj\Debug\LogOut_1_to_2_Installer.csprojResolveAssemblyReference.cache
+c:\users\student1953\documents\visual studio 2015\Projects\LogOut_1_to_2_Installer\LogOut_1_to_2_Installer\obj\Debug\LogOut_1_to_2_Installer.exe
+c:\users\student1953\documents\visual studio 2015\Projects\LogOut_1_to_2_Installer\LogOut_1_to_2_Installer\obj\Debug\LogOut_1_to_2_Installer.pdb

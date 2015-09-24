@@ -61,7 +61,7 @@ class warning_time(Screen):
         
     def set_username(self,name):
         #HERE IS THE SET TEXT METHOD!!
-        self.ids.Text_label.text = name + " is the currently logged in user.\nIf this is you and you need 5 more minutes, select 5 more minutes below.\nOtherwise, select \'Logout Now\' and login with your account."
+        self.ids.Text_label.text = name + " is the currently logged in user.\n\nIf you need more time, select \"5 more minutes.\" If you are done, click \"Logout Now\" to prevent others \nfrom accessing your data.\n\nIf this is not you, click \"Logout Now.\" Then login with your NetID and password to access your personal resources."
     
 class Logout_Time(Screen):
     pass

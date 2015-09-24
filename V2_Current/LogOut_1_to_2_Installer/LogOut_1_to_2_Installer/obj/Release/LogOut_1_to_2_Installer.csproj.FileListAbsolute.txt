@@ -1,0 +1,8 @@
+C:\Users\student1953\Documents\Visual Studio 2015\Projects\LogOut_1_to_2_Installer\LogOut_1_to_2_Installer\bin\Release\LogOut_1_to_2_Installer.exe.config
+C:\Users\student1953\Documents\Visual Studio 2015\Projects\LogOut_1_to_2_Installer\LogOut_1_to_2_Installer\bin\Release\LogOut_1_to_2_Installer.exe
+C:\Users\student1953\Documents\Visual Studio 2015\Projects\LogOut_1_to_2_Installer\LogOut_1_to_2_Installer\bin\Release\LogOut_1_to_2_Installer.pdb
+C:\Users\student1953\Documents\Visual Studio 2015\Projects\LogOut_1_to_2_Installer\LogOut_1_to_2_Installer\obj\Release\LogOut_1_to_2_Installer.exe
+C:\Users\student1953\Documents\Visual Studio 2015\Projects\LogOut_1_to_2_Installer\LogOut_1_to_2_Installer\obj\Release\LogOut_1_to_2_Installer.pdb
+C:\Users\student1953\Documents\Visual Studio 2015\Projects\LogOut_1_to_2_Installer\LogOut_1_to_2_Installer\bin\Release\logOutFiles\HTC-LogOut.exe
+C:\Users\student1953\Documents\Visual Studio 2015\Projects\LogOut_1_to_2_Installer\LogOut_1_to_2_Installer\bin\Release\logOutFiles\uninstall.exe
+C:\Users\student1953\Documents\Visual Studio 2015\Projects\LogOut_1_to_2_Installer\LogOut_1_to_2_Installer\obj\Release\LogOut_1_to_2_Installer.csprojResolveAssemblyReference.cache
